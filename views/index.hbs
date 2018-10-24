@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    </meta>
+    <title>{{pageTitle}}</title>
+</head>
+
+<body>
+
+
+    <button id="gen">generate logs</button>
+    <p id='logs'></p>
+
+</body>
+
+</html>
+<script>
+    $("#gen").click(() => {
+        $.ajax({
+            type: "GET",
+            contentType: 'application/json',
+            url: 'logs',
+            success: function (data) {
+                $('#logs').html(data);
+            }
+        })
+    })
+</script>
