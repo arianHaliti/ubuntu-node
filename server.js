@@ -12,14 +12,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/logs", (req, res) => {
-  let logs = "";
-  exect("./test/hello_w.sh", (err, stdout, stderr) => {
-    if (err) throw err;
-
+  
+  exect("./../test/hello_w.sh", (err, stdout, stderr) => {
+    if (err) return console.log(err);
     console.log(stdout);
-    logs = stdout;
+    res.send(stdout);
   });
-  res.send(`LOGS \n${logs}`);
+
 });
-app.listen(8080);
+app.listen(8080,"192.168.1.140");
 console.log("Hello gajs listening to port 8080");

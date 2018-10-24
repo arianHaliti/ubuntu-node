@@ -21,7 +21,7 @@
     $("#gen").click(() => {
         $.ajax({
             type: "GET",
-            contentType: 'application/json',
+            contentType: 'text/plain',
             url: 'logs',
             success: function (data) {
                 $('#logs').html(data);
