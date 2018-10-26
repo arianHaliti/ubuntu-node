@@ -10,7 +10,10 @@
 
 <body>
 
-
+    <select id="log" name="log_name">
+      <option value ="mem">Memory</option>
+      <option value ="disk">Disk</option>
+    </select>
     <button id="gen">Start script</button>
     <button id="gen">Stop script</button>
     <button id="gen">Terminate script</button>
@@ -21,13 +24,16 @@
 </html>
 <script>
     $("#gen").click(() => {
-        $.ajax({
+        let log = $("#log").val(log.name);
+        console.log(log);
+/*    $.ajax({
             type: "GET",
+            data : 
             contentType: 'text/plain',
             url: 'logs',
             success: function (data) {
                 $('#logs').html(data);
             }
-        })
+        })*/
     })
 </script>

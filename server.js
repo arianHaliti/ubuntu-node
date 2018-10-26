@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/logs", (req, res) => {
-  exect("./../test/hello_w.sh&", (err, stdout, stderr) => {
+  exect("./../test/hello_w.sh NODE! >> /home/arian/testOut&", (err, stdout, stderr) => {
     if (err) return console.log(err);
     console.log(stdout);
     res.send(stdout);
