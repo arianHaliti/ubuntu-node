@@ -11,11 +11,14 @@
 <body>
 
     <select id="log" name="log_name">
-      <option value ="mem">Memory</option>
-      <option value ="disk">Disk</option>
+        <option value="mem">Memory</option>
+        <option value="disk">Disk</option>
     </select>
+    <input id="path" placeholder="path"></input>
+    <input id="inter" placeholder="interval"></input>
+    <br>
     <button id="gen">Start script</button>
-    <button id="gen">Stop script</button>
+    <button id="stop">Stop script</button>
     <button id="gen">Terminate script</button>
     <p id='logs'></p>
 
@@ -24,16 +27,29 @@
 </html>
 <script>
     $("#gen").click(() => {
-        let log = $("#log").val(log.name);
-        console.log(log);
-/*    $.ajax({
+        let log = $("#log option:selected").val();
+        let path = $("#path").val()
+        let inter = $("#inter").val();
+
+        $.ajax({
             type: "GET",
-            data : 
+            data: { log, path, inter },
             contentType: 'text/plain',
             url: 'logs',
             success: function (data) {
-                $('#logs').html(data);
+                $('#logs').html(`Script is with id of ${data}  running ...`);
             }
-        })*/
+        })
+    })
+    $("#stop").click(() => {
+
+        $.ajax({
+            type: "GET",
+            contentType: 'text/plain',
+            url: 'stop',
+            success: function (data) {
+                $('#logs').html("Script has stoped");
+            }
+        })
     })
 </script>
