@@ -19,37 +19,78 @@
     <br>
     <button id="gen">Start script</button>
     <button id="stop">Stop script</button>
-    <button id="gen">Terminate script</button>
     <p id='logs'></p>
-
+    <p id='health'></p>
 </body>
 
 </html>
 <script>
+    let run =0;
     $("#gen").click(() => {
         let log = $("#log option:selected").val();
         let path = $("#path").val()
         let inter = $("#inter").val();
-
+        run=1;
         $.ajax({
             type: "GET",
             data: { log, path, inter },
             contentType: 'text/plain',
             url: 'logs',
             success: function (data) {
-                $('#logs').html(`Script is with id of ${data}  running ...`);
+               // $('#logs').html(`Script is with id of ${data}  running ...`);
             }
         })
+        $('#logs').html("Script is running");
+        health();
     })
     $("#stop").click(() => {
-
+        
         $.ajax({
             type: "GET",
             contentType: 'text/plain',
             url: 'stop',
             success: function (data) {
-                $('#logs').html("Script has stoped");
+                run =0;
+                console.log(data);
+                $('#logs').html("Script has stoped "+data);
             }
         })
+        
     })
+    
+    function health() {
+     var res = check()
+    /* setTimeout(()=>{
+       console.log(res+"   ----------");
+        health();
+        },3000)
+      */
+     
+      if(run ==1 && check() ){
+        setTimeout(()=>{
+         $("#health").html("Script is running healthy")
+          health();
+          },3000)
+        }
+      else if (run==0 && !check()){
+         $("#health").html("");
+          
+        }
+      else if(run==1 && !check()){
+        $("#health").html("Something went wrong"); 
+      }
+    }
+    function check(){
+    var result =""
+     $.ajax({
+        type : "GET",
+        contentType :"text/plain",
+        async : false,
+        url :'check',
+        success:function (data){
+          result = data  
+        } 
+      })
+     return result;
+          }
 </script>
