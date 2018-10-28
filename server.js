@@ -19,7 +19,7 @@ app.get("/logs", (req, res) => {
   let inter = req.query.inter;
 
   exect(
-    `./../test/hello_w.sh ${log} ${inter} >> ${path}&`,
+    `./../test/hello_w.sh ${log} ${inter} ${path}&`,
     (err, stdout, stderr) => {
       if (err) return console.log(err);
       
